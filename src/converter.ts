@@ -6,6 +6,7 @@
 /// <reference path="converter/geometry.ts" />
 /// <reference path="converter/animation.ts" />
 /// <reference path="converter/animation_data.ts" />
+/// <reference path="threejs.ts" />
 
 module COLLADA.Converter {
 
