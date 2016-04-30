@@ -492,15 +492,22 @@ function convertExportThreejs() {
 
 function convertRenderPreview() {
     timeStart("WebGL loading");
-    renderSetModel(conversion_data.s4_exported_custom.json, conversion_data.s4_exported_custom.data);
-    timeEnd("WebGL loading");
 
-    timeStart("WebGL rendering");
-    renderStartRendering();
-    timeEnd("WebGL rendering");
+    window['fetch']('model.json')
+    .then(response => response.json())
+    .then(function(json) {
+        renderSetModel(json, conversion_data.s4_exported_custom.data);
+        
+        timeEnd("WebGL loading");
 
-    // Next stage
-    convertNextStage();
+        timeStart("WebGL rendering");
+        renderStartRendering();
+        timeEnd("WebGL rendering");
+
+        // Next stage
+        convertNextStage();
+    });
+
 }
 
 function onConvertClick() {
