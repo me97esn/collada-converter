@@ -492,12 +492,18 @@ function convertExportThreejs() {
 
 function convertRenderPreview() {
     timeStart("WebGL loading");
-
+    var json
     window['fetch']('model.json')
     .then(response => response.json())
-    .then(function(json) {
-        renderSetModel(json, conversion_data.s4_exported_custom.data);
-        
+    .then(_json => json = _json)
+    .then(() => window['fetch']('model.bin'))
+    .then(response => response.arrayBuffer())
+    .then(arrayBuffer => {
+        debugger
+        var data = new Uint8Array(arrayBuffer)
+
+        renderSetModel(json, data);
+
         timeEnd("WebGL loading");
 
         timeStart("WebGL rendering");
