@@ -502,9 +502,19 @@ function convertRenderPreview() {
     .then(response => response.arrayBuffer())
     .then(arrayBuffer => {
         var data = new Uint8Array(arrayBuffer)
+        
+        var loader = new RMXModelLoader;
+        var model: RMXModel = loader.loadModel(json, data.buffer);
 
-        renderSetModel(json, data);
+        var loader2 = new ThreejsModelLoader;
+        var model2: ThreejsModel = loader2.createModel(model);
 
+        var mesh = model2.instanciate();
+
+        //////////
+        renderer.mesh = mesh;
+        renderer.scene.add(mesh)
+        //////////
         timeEnd("WebGL loading");
 
         timeStart("WebGL rendering");
@@ -513,7 +523,7 @@ function convertRenderPreview() {
 
         // Next stage
         convertNextStage();
-    });
+    }).catch(e => console.error(e));
 
 }
 
