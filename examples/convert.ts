@@ -387,6 +387,8 @@ function convertSetup(src: string) {
     updateUIInput();
 }
 
+convertRenderPreview();
+
 function convertTick() {
     // Synchronously perform one step of the conversion
     try {
@@ -499,7 +501,6 @@ function convertRenderPreview() {
     .then(() => window['fetch']('model.bin'))
     .then(response => response.arrayBuffer())
     .then(arrayBuffer => {
-        debugger
         var data = new Uint8Array(arrayBuffer)
 
         renderSetModel(json, data);
