@@ -514,15 +514,14 @@ function convertRenderPreview() {
         //////////
         renderer.mesh = mesh;
         renderer.scene.add(mesh)
-        //////////
+        ///////////
         timeEnd("WebGL loading");
 
         timeStart("WebGL rendering");
         renderStartRendering();
+        
         timeEnd("WebGL rendering");
 
-        // Next stage
-        convertNextStage();
     }).catch(e => console.error(e));
 
 }

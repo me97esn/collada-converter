@@ -166,15 +166,9 @@ class ThreejsRenderer {
             this.last_timestamp = timestamp;
         }
 
-        // Increase the number of loops to measure performance
-        // FPS is otherwise bounded by the vertical sync
-        var loops: number = this.render_loops || 1;
-        for (var i = 0; i < loops; ++i) {
-            this.stats.begin();
-            this.updateAnimation(delta_time / loops);
+            this.updateAnimation(delta_time);
             this.drawScene();
-            this.stats.end();
-        }
+
 
         return true;
     }
