@@ -7,7 +7,8 @@
     <title>Collada Animation Loader/Converter</title>
     <!-- Library: three.js -->
     <script type="text/javascript"     src="../external/threejs/three.js" charset="utf-8"></script>
-    <!-- Library: gl-matrix -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.27/system.js"></script>
+
     <script type="text/javascript"     src="../external/glmatrix/gl-matrix.js" charset="utf-8"></script>
     <!-- Project: Converter example -->
    
@@ -31,6 +32,14 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="convert.js" charset="utf-8"></script>
+    <script>
+        var convert
+        System.import('convert.js')
+        .then(_convert => convert = _convert)
+        .then(convert => convert.loadModel('/examples'))
+        .then(mesh => convert.renderer.mesh = mesh)
+        .then(mesh => convert.renderer.scene.add(mesh))
+        .then(() => convert.renderStartRendering())
+    </script>
 </body>
 </html>
