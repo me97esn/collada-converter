@@ -34,12 +34,24 @@
     </div>
     <script>
         var convert
+
+        function renderTick (timestamp) {
+
+            convert.renderer.tick(timestamp)
+            convert.renderer.renderer.render(
+                convert.renderer.scene, 
+                convert.renderer.camera)
+            
+            requestAnimationFrame(renderTick)
+
+        }
+
         System.import('convert.js')
         .then(_convert => convert = _convert)
         .then(convert => convert.loadModel('/examples'))
         .then(mesh => convert.renderer.mesh = mesh)
         .then(mesh => convert.renderer.scene.add(mesh))
-        .then(() => convert.renderStartRendering())
+        .then(() => renderTick(null))
     </script>
 </body>
 </html>
