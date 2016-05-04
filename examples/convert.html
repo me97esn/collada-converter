@@ -39,114 +39,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Geometry complexity</label>
-                        <div class="col-md-8">
-                            <p class="form-control-static" id="output-geometry-complexity"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Geometry size</label>
-                        <div class="col-md-8">
-                            <p class="form-control-static" id="output-geometry-size"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Animation complexity</label>
-                        <div class="col-md-8">
-                            <p class="form-control-static" id="output-animation-complexity"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Rendered chunks</label>
-                        <div class="col-md-8">
-                            <select class="form-control" id="output-chunk">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Played animation</label>
-                        <div class="col-md-8">
-                            <select class="form-control" id="output-animation">
-                            </select>
-                        </div>
-                    </div>
+                    
                 </form>
-                <h3>Output</h3>
-                <form class="form-horizontal" role="form">
-                    <a class="hidden" id="download-link">Hidden download link</a>
-                    <div class="form-group output-group" id="output-custom-json">
-                        <label class="col-sm-4 control-label">Custom (JSON)</label>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-primary btn-block output-download" disabled>Download</button>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-info btn-block output-view" disabled>View</button>
-                        </div>
-                        <div class="col-sm-2">
-                            <p class="form-control-static output-size"></p>
-                        </div>
-                    </div>
-                    <div class="form-group output-group" id="output-custom-binary">
-                        <label class="col-sm-4 control-label">Custom (binary)</label>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-primary btn-block output-download" disabled>Download</button>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-info btn-block output-view" disabled>View</button>
-                        </div>
-                        <div class="col-sm-2">
-                            <p class="form-control-static output-size"></p>
-                        </div>
-                    </div>
-                    <div class="form-group output-group" id="output-threejs">
-                        <label class="col-sm-4 control-label">Three.js (JSON)</label>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-primary btn-block output-download" disabled>Download</button>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-info btn-block output-view" disabled>View</button>
-                        </div>
-                        <div class="col-sm-2">
-                            <p class="form-control-static output-size"></p>
-                        </div>
-                    </div>
-               </form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Log</h3>
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <textarea class="form-control" rows="8" id="log" readonly></textarea>
-                        </div>
-                    </div>
-                </form>
+                
             </div>
         </div>
     </div>
-    <!-- Modal (Preview)-->
-    <div class="modal" id="preview-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Preview (pretty-printed)</h4>
-                </div>
-                <div class="modal-body">
-                    <textarea class="form-control" rows="20" id="preview-data" style="font-family: monospace; font-size: 9pt;">
-                    </textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="close-preview">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <script type="text/javascript">
-        window.onload = function () { init(); }
+        window.onload = function () { 
+            init(); }
     </script>
 </body>
 </html>
