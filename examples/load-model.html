@@ -83,6 +83,17 @@
         })
         .then(() => renderTick(null))
         .catch(e => console.error(e))
+
+        System.import('convert.js')
+        .then(convert => convert.loadModel({path:'/examples', renderer}))
+        .then(animation => {
+            const {mesh} = animation
+            // threejsRenderer2 = animation.threejsRenderer
+            mesh.position.setX(3)
+            scene.add(mesh)
+        })
+        .then(() => renderTick(null))
+        .catch(e => console.error(e))
     </script>
 </body>
 </html>
