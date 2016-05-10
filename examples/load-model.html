@@ -33,7 +33,7 @@
         </div>
     </div>
     <script>
-        let tick, animation
+        let tick, animation, animation2
             // Scene
         const scene = new THREE.Scene()
         var canvas = document.getElementById('canvas')
@@ -67,6 +67,7 @@
         function renderTick (timestamp) {
 
             animation.tick(timestamp)
+            // animation2.tick(timestamp && timestamp + 1000)
             renderer.render(
                 scene, 
                 camera)
@@ -77,9 +78,14 @@
         System.import('convert.js')
         .then(ColladaAnimation => animation = new ColladaAnimation(renderer))
         .then(()=>animation.loadModel('/examples'))
-        .then(animation => {
-            const mesh = animation
+        .then(mesh => scene.add(mesh))
+        .then(()=>System.import('convert.js'))
+        .then(ColladaAnimation => animation2 = new ColladaAnimation(renderer))
+        .then(()=>animation2.loadModel('/examples'))
+        .then(mesh => {
+            mesh.position.setX(2)
             scene.add(mesh)
+            return
         })
         .then(() => renderTick(null))
         .catch(e => console.error(e))
