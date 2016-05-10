@@ -33,7 +33,7 @@
         </div>
     </div>
     <script>
-        let threejsRenderer
+        let tick
             // Scene
         const scene = new THREE.Scene()
         var canvas = document.getElementById('canvas')
@@ -66,7 +66,7 @@
 
         function renderTick (timestamp) {
 
-            threejsRenderer.tick(timestamp)
+            tick(timestamp)
             renderer.render(
                 scene, 
                 camera)
@@ -78,22 +78,22 @@
         .then(convert => convert.loadModel({path:'/examples', renderer}))
         .then(animation => {
             const {mesh} = animation
-            threejsRenderer = animation.threejsRenderer
+            tick = animation.tick
             scene.add(mesh)
         })
         .then(() => renderTick(null))
         .catch(e => console.error(e))
 
-        System.import('convert.js')
-        .then(convert => convert.loadModel({path:'/examples', renderer}))
-        .then(animation => {
-            const {mesh} = animation
-            // threejsRenderer2 = animation.threejsRenderer
-            mesh.position.setX(3)
-            scene.add(mesh)
-        })
-        .then(() => renderTick(null))
-        .catch(e => console.error(e))
+        // System.import('convert.js')
+        // .then(convert => convert.loadModel({path:'/examples', renderer}))
+        // .then(animation => {
+        //     const {mesh} = animation
+        //     // tick2 = animation.tick
+        //     mesh.position.setX(3)
+        //     scene.add(mesh)
+        // })
+        // .then(() => renderTick(null))
+        // .catch(e => console.error(e))
     </script>
 </body>
 </html>

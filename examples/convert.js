@@ -90,35 +90,6 @@ var ThreejsModelLoader = (function () {
 var timestamps = {}
 var renderer
 
-// ----------------------------------------------------------------------------
-// Renderer
-// ----------------------------------------------------------------------------
-function renderSetModel (json, data) {
-  renderer.setMesh(json, data)
-}
-
-function convertRenderPreview () {
-  var json
-  window.fetch('model.json')
-    .then(response => response.json())
-    .then(function (_json) { return json = _json; })
-    .then(() => window['fetch']('model.bin'))
-    .then(response => response.arrayBuffer())
-    .then(arrayBuffer => {
-      var data = new Uint8Array(arrayBuffer)
-      var loader = new RMXModelLoader
-      var model = loader.loadModel(json, data.buffer)
-      var loader2 = new ThreejsModelLoader
-      var model2 = loader2.createModel(model)
-      var mesh = model2.instanciate()
-      // ////////
-      renderer.mesh = mesh
-      renderer.scene.add(mesh)
-      // /////////
-      renderStartRendering()
-    }).catch(e => console.error(e))
-}
-
 /*
 path should be to a folder where two files exist:
 1) model.json. A json file created by the collada converter (not three json format)
@@ -143,7 +114,11 @@ function loadModel (params) {
       var mesh = model2.instanciate()
       threejsRenderer.mesh = mesh
 
-      return {mesh, threejsRenderer}
+      return {
+        mesh,
+        tick: function (timestamp) {
+          threejsRenderer.tick(timestamp)
+      }}
     })
 }
 
