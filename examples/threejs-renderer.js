@@ -5,13 +5,6 @@ var ThreejsRenderer = (function () {
     this.canvas = params.canvas
     this.camera = params.camera
     this.scene = params.scene
-    this.renderer = null
-    this.mesh = null
-    this.lights = []
-    this.grid = null
-    this.axes = null
-    this.stats = null
-    this.last_timestamp = null
     this.time = 0
     this.render_loops = 1
     this.animation_index = 0
@@ -26,21 +19,7 @@ var ThreejsRenderer = (function () {
 
     this.drawScene()
   }
-  /** Zooms the camera so that it shows the object */
-  ThreejsRenderer.prototype.zoomToObject = function (scale) {
-    this.zoomTo(0, 0, 0, 1 * scale)
-  }
-  /** Zooms the camera so that it shows the given coordinates */
-  ThreejsRenderer.prototype.zoomTo = function (x, y, z, r) {
-    this.camera.position.set(x + 1 * r, y + 0.3 * r, z + 0.5 * r)
 
-    this.camera.lookAt(new THREE.Vector3(x, y, z))
-    this.camera.updateProjectionMatrix()
-  }
-  /** Resets the camera */
-  ThreejsRenderer.prototype.resetCamera = function () {
-    this.zoomToObject(10)
-  }
   /** Main render loop */
   ThreejsRenderer.prototype.tick = function (timestamp) {
     // Abort if there is nothing to render
