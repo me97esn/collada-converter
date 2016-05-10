@@ -5,19 +5,10 @@ var ThreejsRenderer = (function () {
     this.canvas = params.canvas
     this.camera = params.camera
     this.scene = params.scene
+    this.renderer = params.renderer
     this.time = 0
     this.render_loops = 1
     this.animation_index = 0
-  }
-  ThreejsRenderer.prototype.init = function (scene) {
-    // Renderer
-    this.renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false })
-    this.renderer.setSize(canvas.width, canvas.height)
-    this.renderer.setClearColor(new THREE.Color(0.5, 0.5, 0.5), 1)
-    this.renderer.gammaInput = true
-    this.renderer.gammaOutput = true
-
-    this.drawScene()
   }
 
   /** Main render loop */
