@@ -125,7 +125,9 @@ module.exports = {
   renderer,
   ThreejsRenderer,
   loadModel(params) {
-    const {path} = params
+    const {path, canvas, scene, camera, renderer} = params
+    const threejsRenderer = new ThreejsRenderer({canvas, scene, camera, renderer})
+
     var json
     return window.fetch(`${path}/model.json`)
       .then(response => response.json())
@@ -139,8 +141,9 @@ module.exports = {
         var loader2 = new ThreejsModelLoader()
         var model2 = loader2.createModel(model)
         var mesh = model2.instanciate()
+        threejsRenderer.mesh = mesh
 
-        return mesh
+        return {mesh, threejsRenderer}
       })
   }
 }

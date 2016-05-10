@@ -33,7 +33,6 @@
         </div>
     </div>
     <script>
-        var convert
         let threejsRenderer
             // Scene
         const scene = new THREE.Scene()
@@ -75,13 +74,13 @@
             requestAnimationFrame(renderTick)
         }
 
-        System.import('./threejs-renderer.js')
-        .then(ThreejsRenderer => threejsRenderer = new ThreejsRenderer({canvas, scene, camera, renderer}))
-        .then(()=>System.import('convert.js'))
-        .then(_convert => convert = _convert)
-        .then(() => convert.loadModel({path:'/examples'}))
-        .then(mesh => threejsRenderer.mesh = mesh)
-        .then(mesh => {scene.add(mesh)})
+        System.import('convert.js')
+        .then(convert => convert.loadModel({path:'/examples', canvas, scene, camera, renderer}))
+        .then(animation => {
+            const {mesh} = animation
+            threejsRenderer = animation.threejsRenderer
+            scene.add(mesh)
+        })
         .then(() => renderTick(null))
         .catch(e => console.error(e))
     </script>
