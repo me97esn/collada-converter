@@ -96,8 +96,8 @@ path should be to a folder where two files exist:
 2) model.bin. A binary file created by the collada converter
 */
 function loadModel (params) {
-  const {path, canvas, scene, camera, renderer} = params
-  const threejsRenderer = new ThreejsRenderer({canvas, scene, camera, renderer})
+  const {path, renderer} = params
+  const threejsRenderer = new ThreejsRenderer({canvas, renderer})
 
   var json
   return window.fetch(`${path}/model.json`)
@@ -122,6 +122,35 @@ function loadModel (params) {
     })
 }
 
-module.exports = {
-  renderer,
-loadModel}
+class ColladaAnimation {
+  constructor (renderer) {
+    this.renderer = renderer
+    this.threejsRenderer = new ThreejsRenderer({renderer})
+  }
+
+  tick (timestamp) {
+    this.threejsRenderer.tick(timestamp)
+  }
+
+  loadModel (path) {
+    var json
+    return window.fetch(`${path}/model.json`)
+      .then(response => response.json())
+      .then(function (_json) { return json = _json; })
+      .then(() => window.fetch('model.bin'))
+      .then(response => response.arrayBuffer())
+      .then(arrayBuffer => {
+        var data = new Uint8Array(arrayBuffer)
+        var loader = new RMXModelLoader()
+        var model = loader.loadModel(json, data.buffer)
+        var loader2 = new ThreejsModelLoader()
+        var model2 = loader2.createModel(model)
+        var mesh = model2.instanciate()
+        this.threejsRenderer.mesh = mesh
+
+        return mesh
+      })
+  }
+}
+
+module.exports = ColladaAnimation
