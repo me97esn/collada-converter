@@ -37,6 +37,14 @@
     let threejsRenderer
         // Scene
     const scene = new THREE.Scene()
+    var canvas = document.getElementById('canvas')
+    
+        // Camera
+    const camera = new THREE.PerspectiveCamera(27, canvas.width / canvas.height, 1, 2000)
+    camera.position.set(10, 3, 5)
+    camera.rotation.set(-0.5, 1, 2, 'XYZ')
+
+
     // Lights
     var light0 = new THREE.AmbientLight(0x444444)
     
@@ -60,15 +68,11 @@
             requestAnimationFrame(renderTick)
 
         }
-
-        System.import('convert.js')
+        System.import('./threejs-renderer.js')
+        .then(ThreejsRenderer => threejsRenderer = new ThreejsRenderer({canvas, scene, camera}))
+        .then(()=>System.import('convert.js'))
         .then(_convert => convert = _convert)
-        .then(()=>{
-            threejsRenderer = new convert.ThreejsRenderer({scene})
-            var canvas = document.getElementById('canvas')
-            threejsRenderer.init(canvas)
-            return
-            })
+        .then(()=>threejsRenderer.init(canvas))
         .then(() => convert.loadModel('/examples'))
         .then(mesh => threejsRenderer.mesh = mesh)
         .then(mesh => scene.add(mesh))

@@ -2,8 +2,8 @@ const RMXSkeletalAnimation = require('./rmx/RMXSkeletalAnimation.js')
 
 var ThreejsRenderer = (function () {
   function ThreejsRenderer (params) {
-    this.canvas = null
-    this.camera = null
+    this.canvas = params.canvas
+    this.camera = params.camera
     this.scene = params.scene
     this.renderer = null
     this.mesh = null
@@ -16,13 +16,7 @@ var ThreejsRenderer = (function () {
     this.render_loops = 1
     this.animation_index = 0
   }
-  ThreejsRenderer.prototype.init = function (scene, renderer) {
-    var _this = this
-    this.canvas = canvas
-    // Camera
-    this.camera = new THREE.PerspectiveCamera(27, canvas.width / canvas.height, 1, 10)
-    this.resetCamera()
-
+  ThreejsRenderer.prototype.init = function (scene) {
     // Renderer
     this.renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false })
     this.renderer.setSize(canvas.width, canvas.height)
@@ -39,9 +33,8 @@ var ThreejsRenderer = (function () {
   /** Zooms the camera so that it shows the given coordinates */
   ThreejsRenderer.prototype.zoomTo = function (x, y, z, r) {
     this.camera.position.set(x + 1 * r, y + 0.3 * r, z + 0.5 * r)
-    this.camera.up.set(0, 0, 1)
+
     this.camera.lookAt(new THREE.Vector3(x, y, z))
-    this.camera.far = 2 * r + 20
     this.camera.updateProjectionMatrix()
   }
   /** Resets the camera */
