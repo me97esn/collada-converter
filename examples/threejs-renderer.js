@@ -56,12 +56,6 @@ var ThreejsRenderer = (function () {
     this.animation_index = index
     this.time = 0
   }
-  ThreejsRenderer.prototype.setChunk = function (index) {
-    var mesh = this.mesh
-    mesh.children.forEach(function (child, i) {
-      child.visible = index === -1 || index === i
-    })
-  }
 
   return ThreejsRenderer
 })()
