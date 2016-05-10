@@ -119,30 +119,34 @@ function convertRenderPreview () {
     }).catch(e => console.error(e))
 }
 
-// Initialize WebGL
+/*
+path should be to a folder where two files exist:
+1) model.json. A json file created by the collada converter (not three json format)
+2) model.bin. A binary file created by the collada converter
+*/
+function loadModel (params) {
+  const {path, canvas, scene, camera, renderer} = params
+  const threejsRenderer = new ThreejsRenderer({canvas, scene, camera, renderer})
+
+  var json
+  return window.fetch(`${path}/model.json`)
+    .then(response => response.json())
+    .then(function (_json) { return json = _json; })
+    .then(() => window.fetch('model.bin'))
+    .then(response => response.arrayBuffer())
+    .then(arrayBuffer => {
+      var data = new Uint8Array(arrayBuffer)
+      var loader = new RMXModelLoader()
+      var model = loader.loadModel(json, data.buffer)
+      var loader2 = new ThreejsModelLoader()
+      var model2 = loader2.createModel(model)
+      var mesh = model2.instanciate()
+      threejsRenderer.mesh = mesh
+
+      return {mesh, threejsRenderer}
+    })
+}
 
 module.exports = {
   renderer,
-  loadModel(params) {
-    const {path, canvas, scene, camera, renderer} = params
-    const threejsRenderer = new ThreejsRenderer({canvas, scene, camera, renderer})
-
-    var json
-    return window.fetch(`${path}/model.json`)
-      .then(response => response.json())
-      .then(function (_json) { return json = _json; })
-      .then(() => window.fetch('model.bin'))
-      .then(response => response.arrayBuffer())
-      .then(arrayBuffer => {
-        var data = new Uint8Array(arrayBuffer)
-        var loader = new RMXModelLoader()
-        var model = loader.loadModel(json, data.buffer)
-        var loader2 = new ThreejsModelLoader()
-        var model2 = loader2.createModel(model)
-        var mesh = model2.instanciate()
-        threejsRenderer.mesh = mesh
-
-        return {mesh, threejsRenderer}
-      })
-  }
-}
+loadModel}
