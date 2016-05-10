@@ -1,6 +1,9 @@
 const RMXSkeletalAnimation = require('./rmx/RMXSkeletalAnimation.js')
 
 function ThreejsRenderer (params) {
+  const canvas = document.createElement('canvas')
+  this.ctx = canvas.getContext('webgl')
+
   this.renderer = params.renderer
   this.time = 0
   this.render_loops = 1
