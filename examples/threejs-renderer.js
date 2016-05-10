@@ -2,9 +2,6 @@ const RMXSkeletalAnimation = require('./rmx/RMXSkeletalAnimation.js')
 
 var ThreejsRenderer = (function () {
   function ThreejsRenderer (params) {
-    this.canvas = params.canvas
-    this.camera = params.camera
-    this.scene = params.scene
     this.renderer = params.renderer
     this.time = 0
     this.render_loops = 1

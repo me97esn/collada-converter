@@ -75,7 +75,7 @@
         }
 
         System.import('convert.js')
-        .then(convert => convert.loadModel({path:'/examples', canvas, scene, camera, renderer}))
+        .then(convert => convert.loadModel({path:'/examples', renderer}))
         .then(animation => {
             const {mesh} = animation
             threejsRenderer = animation.threejsRenderer
