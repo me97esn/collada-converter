@@ -31,13 +31,10 @@ var ThreejsRenderer = (function () {
       this.last_timestamp = timestamp
     }
     this.updateAnimation(delta_time)
-    this.drawScene()
+
     return true
   }
-  /** Draws the scene */
-  ThreejsRenderer.prototype.drawScene = function () {
-    this.renderer.render(this.scene, this.camera)
-  }
+
   /** Updates skeletal animation data */
   ThreejsRenderer.prototype.updateAnimation = function (delta_time) {
     this.time += delta_time / (1000)
@@ -68,25 +65,7 @@ var ThreejsRenderer = (function () {
       child.visible = index === -1 || index === i
     })
   }
-  ThreejsRenderer.prototype.setMesh = function (json, data) {
-    this.resetMesh()
-    if (!json || !data) {
-      return
-    }
-    var loader = new RMXModelLoader
-    var model = loader.loadModel(json, data.buffer)
-    var loader2 = new ThreejsModelLoader
-    var model2 = loader2.createModel(model)
-    this.mesh = model2.instanciate()
-    this.scene.add(this.mesh)
-    this.zoomToObject(5)
-  }
-  ThreejsRenderer.prototype.resetMesh = function () {
-    if (this.mesh) {
-      this.scene.remove(this.mesh)
-      this.mesh = null
-    }
-  }
+
   return ThreejsRenderer
 })()
 

@@ -123,7 +123,6 @@ function convertRenderPreview () {
 
 module.exports = {
   renderer,
-  ThreejsRenderer,
   loadModel(params) {
     const {path, canvas, scene, camera, renderer} = params
     const threejsRenderer = new ThreejsRenderer({canvas, scene, camera, renderer})

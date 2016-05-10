@@ -67,9 +67,9 @@
         function renderTick (timestamp) {
 
             threejsRenderer.tick(timestamp)
-            threejsRenderer.renderer.render(
+            renderer.render(
                 scene, 
-                threejsRenderer.camera)
+                camera)
             
             requestAnimationFrame(renderTick)
         }
