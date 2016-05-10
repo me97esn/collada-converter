@@ -124,7 +124,8 @@ function convertRenderPreview () {
 module.exports = {
   renderer,
   ThreejsRenderer,
-  loadModel(path = '') {
+  loadModel(params) {
+    const {path} = params
     var json
     return window.fetch(`${path}/model.json`)
       .then(response => response.json())

@@ -33,37 +33,37 @@
         </div>
     </div>
     <script>
-    var convert
-    let threejsRenderer
-        // Scene
-    const scene = new THREE.Scene()
-    var canvas = document.getElementById('canvas')
-    
-        // Camera
-    const camera = new THREE.PerspectiveCamera(27, canvas.width / canvas.height, 1, 2000)
-    camera.position.set(10, 3, 5)
-    camera.rotation.set(-0.5, 1, 2, 'XYZ')
+        var convert
+        let threejsRenderer
+            // Scene
+        const scene = new THREE.Scene()
+        var canvas = document.getElementById('canvas')
+        
+            // Camera
+        const camera = new THREE.PerspectiveCamera(27, canvas.width / canvas.height, 1, 2000)
+        camera.position.set(10, 3, 5)
+        camera.rotation.set(-0.5, 1, 2, 'XYZ')
 
 
-    // Lights
-    var light0 = new THREE.AmbientLight(0x444444)
-    
-    scene.add(light0)
-    var light1 = new THREE.DirectionalLight(0xffffff, 0.5)
-    light1.position.set(1, 1, 1)
-    
-    scene.add(light1)
-    var light2 = new THREE.DirectionalLight(0xffffff, 1.5)
-    light2.position.set(0, -1, 0)
-    
-    // Renderer
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false })
-    renderer.setSize(canvas.width, canvas.height)
-    renderer.setClearColor(new THREE.Color(0.5, 0.5, 0.5), 1)
-    renderer.gammaInput = true
-    renderer.gammaOutput = true
+        // Lights
+        var light0 = new THREE.AmbientLight(0x444444)
+        
+        scene.add(light0)
+        var light1 = new THREE.DirectionalLight(0xffffff, 0.5)
+        light1.position.set(1, 1, 1)
+        
+        scene.add(light1)
+        var light2 = new THREE.DirectionalLight(0xffffff, 1.5)
+        light2.position.set(0, -1, 0)
+        
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false })
+        renderer.setSize(canvas.width, canvas.height)
+        renderer.setClearColor(new THREE.Color(0.5, 0.5, 0.5), 1)
+        renderer.gammaInput = true
+        renderer.gammaOutput = true
 
-    scene.add(light2)
+        scene.add(light2)
 
         function renderTick (timestamp) {
 
@@ -73,15 +73,15 @@
                 threejsRenderer.camera)
             
             requestAnimationFrame(renderTick)
-
         }
+
         System.import('./threejs-renderer.js')
         .then(ThreejsRenderer => threejsRenderer = new ThreejsRenderer({canvas, scene, camera, renderer}))
         .then(()=>System.import('convert.js'))
         .then(_convert => convert = _convert)
-        .then(() => convert.loadModel('/examples'))
+        .then(() => convert.loadModel({path:'/examples'}))
         .then(mesh => threejsRenderer.mesh = mesh)
-        .then(mesh => scene.add(mesh))
+        .then(mesh => {scene.add(mesh)})
         .then(() => renderTick(null))
         .catch(e => console.error(e))
     </script>
